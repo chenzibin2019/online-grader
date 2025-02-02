@@ -5,7 +5,8 @@ import TotalScore from "./components/TotalScore";
 import Comments from "./components/Comments";
 
 const Grader = ({ rubric }) => {
-    const [currentGrading, setCurrentGrading] = useState({...rubric.rubrics.reduce((cur, rub, index) => ({...cur, [index]: []}), {})}); // group_index -> [selected items]
+    const not_graded = {...rubric.rubrics.reduce((cur, rub, index) => ({...cur, [index]: []}), {})}
+    const [currentGrading, setCurrentGrading] = useState(not_graded); // group_index -> [selected items]
     
     document.grading = currentGrading;
 
@@ -42,7 +43,10 @@ const Grader = ({ rubric }) => {
             {/* <div className="test">Show Results</div> */}
             {rubric.rubrics.map((group, index) => <GradingGroup key={index} group={{ ...group, index }} grading={currentGrading} />)}
             <div className="sidebar">
-                <button className="reset-button">
+                <button 
+                    className="reset-button"
+                    onClick={() => setCurrentGrading(not_graded)}
+                >
                     Reset
                 </button>
                 <div>
