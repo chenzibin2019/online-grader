@@ -1,5 +1,5 @@
 import GradingGroup from "./components/GradingGroup";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import event from "./utils/event";
 import TotalScore from "./components/TotalScore";
 import Comments from "./components/Comments";
@@ -7,8 +7,7 @@ import Comments from "./components/Comments";
 const Grader = ({ rubric }) => {
     const not_graded = {...rubric.rubrics.reduce((cur, rub, index) => ({...cur, [index]: []}), {})}
     const [currentGrading, setCurrentGrading] = useState(not_graded); // group_index -> [selected items]
-    
-    document.grading = currentGrading;
+    const totalRef = useRef(null);
 
     const onGrading = (group_index, item_index, value) => {
         
@@ -40,7 +39,12 @@ const Grader = ({ rubric }) => {
     }, [])
     return (
         <div>
-            {/* <div className="test">Show Results</div> */}
+            <div
+                className="to-result"
+                onClick={() => {
+                    totalRef.current.scrollIntoView({ behavior: "smooth" });
+                }}
+            >Show Results</div>
             {rubric.rubrics.map((group, index) => <GradingGroup key={index} group={{ ...group, index }} grading={currentGrading} />)}
             <div className="sidebar">
                 <button 
@@ -49,7 +53,21 @@ const Grader = ({ rubric }) => {
                 >
                     Reset
                 </button>
-                <div>
+                <button 
+                    className="reset-button"
+                    onClick={() => {
+                        const confirm_reset = window.confirm("Are you sure? All changes will be lost. Make sure you download your work before leaving!");
+                        if (!confirm_reset) {
+                            return;
+                        }
+                        event.emit("switch", "INITIAL")
+                    }}
+                >
+                    Back
+                </button>
+                <div
+                    ref={totalRef}
+                >
                     <TotalScore 
                         grading={currentGrading} 
                         rubrics={rubric.rubrics}
