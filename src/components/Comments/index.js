@@ -21,7 +21,7 @@ const Comments = ({ grading, rubrics }) => {
                 sys_comments += `[${element.name}] -${total(element)}pts, No submission or does not work at all.\n`;
                 return;
             }
-            
+
             element.items.forEach((item, item_index) => {
                 const is_checked = checked.includes(item_index);
                 if (item.grade > 0 && !is_checked) {
@@ -32,12 +32,22 @@ const Comments = ({ grading, rubrics }) => {
             })
         });
         setComment(sys_comments);
+        autoAdjustTextareaHeight();
     }, [grading]);
 
-    
+    const autoAdjustTextareaHeight = () => {
+        if (commentRef.current) {
+            commentRef.current.style.height = 'auto';
+            commentRef.current.style.height = `${commentRef.current.scrollHeight}px`;
+        }
+    }
+
+    useEffect(autoAdjustTextareaHeight, []);
+
+
     return <div className="comment-container">
         <p className="comment-label">Comment: [<a className="copy-link" onClick={copy}>Copy</a>]</p>
-        <textarea 
+        <textarea
             className="comment"
             value={comment}
             onChange={e => setComment(e.target.value)}
