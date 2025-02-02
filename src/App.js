@@ -10,7 +10,7 @@ const App = () => {
 
     const loadBuilder = async () => {
         const load = window.confirm("Do you want to load the previous rubric?");
-        let rubric = {rubrics: []};
+        let rubric = {rubrics: [{"name":"NEW GROUP","check_submission":false,"items":[]}]};
         if (load) {
             rubric = await reader();
         } 

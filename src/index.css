@@ -262,24 +262,11 @@ input[type='checkbox']:checked + .checkmark::after {
   margin: 20px;
   padding: 10px 20px;
   font-size: 25px;
-  width: 30%;
-  height: 5vw;
+  width: 260px;
+  height: 64px;
   background-color: #f5f5f5;
   border: none;
   cursor: pointer;
-}
-
-.test {
-  position: fixed;
-  top: 10px;
-  right: auto;
-  padding: 10px;
-  background-color: rgb(139, 17, 17);
-  color: white;
-  border: none;
-  cursor: pointer; 
-  width: 90px;
-  text-align: center;
 }
 
 .correct {

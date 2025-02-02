@@ -10,6 +10,7 @@ import handleDeleteGroup from "./design/delete_group";
 import handleEditGroupName from "./design/edit_group_name";
 import handleDeleteItem from "./design/delete_item";
 import handleAddItem from "./design/add_item";
+import handleEditComments from "./design/edit_comment";
 
 const GradingGroup = ({ group, grading }) => {
     const mode = grading ? "GRADER" : "BUILDER";
@@ -62,7 +63,7 @@ const GradingGroup = ({ group, grading }) => {
                         {isDesigning && <>
                             <i className="fa fa-pen" style={{ fontSize: '10px', margin: '5px', cursor: 'pointer'}} onClick={() => handleEditDescription(group.index, item_index, item.description)} />
                             <i className="fa fa-code" style={{ fontSize: '10px', margin: '5px', cursor: 'pointer', color: item.code? 'green': 'inherit'}} onClick={() => handleEditCode(group.index, item_index, item.code)} />
-                            <i className="fa fa-message" style={{ fontSize: '10px', margin: '5px', cursor: 'pointer'}} onClick={() => handleEditScore(group.index, item_index, item.grade)} />
+                            <i className="fa fa-message" style={{ fontSize: '10px', margin: '5px', cursor: 'pointer'}} onClick={() => handleEditComments(group.index, item_index, item.comment)} />
                         </>}
                     </span>
                     <span className="grade">

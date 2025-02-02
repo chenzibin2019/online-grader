@@ -48,6 +48,10 @@ const Builder = ({ rubric }) => {
             if (type === "ADD_GROUP") {
                 newRubric.rubrics.push({name: "NEW GROUP", check_submission: false, items: []});
             }
+            if (type === "EDIT_CMT") {
+                const { group, item, comment } = data;
+                newRubric.rubrics[group].items[item].comment = comment;
+            }
             setDesignRubric(newRubric);
         });
         return () => {
