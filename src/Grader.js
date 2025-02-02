@@ -1,0 +1,63 @@
+import GradingGroup from "./components/GradingGroup";
+import { useState, useEffect } from "react";
+import event from "./utils/event";
+import TotalScore from "./components/TotalScore";
+import Comments from "./components/Comments";
+
+const Grader = ({ rubric }) => {
+    const [currentGrading, setCurrentGrading] = useState({...rubric.rubrics.reduce((cur, rub, index) => ({...cur, [index]: []}), {})}); // group_index -> [selected items]
+    
+    document.grading = currentGrading;
+
+    const onGrading = (group_index, item_index, value) => {
+        
+        setCurrentGrading((prevGrading) => {
+            const newGrading = { ...prevGrading };
+
+            if (!newGrading[group_index]) {
+                newGrading[group_index] = [];
+            }
+            if (value && !newGrading[group_index].includes(item_index)) {
+                newGrading[group_index].push(item_index);
+            } else if (!value && newGrading[group_index].includes(item_index)) {
+                if (newGrading[group_index]) {
+                    newGrading[group_index] = newGrading[group_index].filter((i) => i !== item_index);
+                }
+            }
+            console.log(newGrading);
+            
+            return newGrading;
+        });
+    }
+
+
+    useEffect(() => {
+        event.on("grading", onGrading);
+        return () => {
+            event.off("grading", onGrading);
+        }
+    }, [])
+    return (
+        <div>
+            {/* <div className="test">Show Results</div> */}
+            {rubric.rubrics.map((group, index) => <GradingGroup key={index} group={{ ...group, index }} grading={currentGrading} />)}
+            <div className="sidebar">
+                <button className="reset-button">
+                    Reset
+                </button>
+                <div>
+                    <TotalScore 
+                        grading={currentGrading} 
+                        rubrics={rubric.rubrics}
+                    />
+                    <Comments
+                        grading={currentGrading}
+                        rubrics={rubric.rubrics}
+                    />
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default Grader;
