@@ -23,9 +23,7 @@ const Grader = ({ rubric }) => {
                 if (newGrading[group_index]) {
                     newGrading[group_index] = newGrading[group_index].filter((i) => i !== item_index);
                 }
-            }
-            console.log(newGrading);
-            
+            }            
             return newGrading;
         });
     }
@@ -40,7 +38,7 @@ const Grader = ({ rubric }) => {
     return (
         <div>
             <div
-                className="to-result"
+                className="to-result primary"
                 onClick={() => {
                     totalRef.current.scrollIntoView({ behavior: "smooth" });
                 }}
@@ -64,6 +62,12 @@ const Grader = ({ rubric }) => {
                     }}
                 >
                     Back
+                </button>
+                <button 
+                    className="reset-button"
+                    onClick={() => event.emit("switch", "BUILDER")}
+                >
+                    Edit Rubric
                 </button>
                 <div
                     ref={totalRef}

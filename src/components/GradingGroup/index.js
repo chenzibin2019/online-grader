@@ -17,7 +17,7 @@ const GradingGroup = ({ group, grading }) => {
     const isDesigning = mode === "BUILDER";
     
     
-    return <div className="group">
+    return <div className={`group ${isDesigning && "designing"}`}>
         <h2>{group.name} ({total(group)}pts) 
             {!isDesigning && <span 
                 onClick={() => correct(group, grading)}
@@ -45,7 +45,7 @@ const GradingGroup = ({ group, grading }) => {
             </label>
         )}
         {group.items.map((item, item_index) => (
-            <div key={`grading-item-${group.index}-${item_index}`}>
+            <div key={`grading-item-${group.index}-${item_index}`} className="grading-item">
                 <label className={`item ${!isDesigning && grading[group.index] && !!grading[group.index].includes(-1) && "disabled"}`}>
                     {!isDesigning && <input
                         type="checkbox"

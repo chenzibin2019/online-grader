@@ -203,13 +203,7 @@ input[type='checkbox']:checked + .checkmark::after {
 }
 
 .copy-link {
-  /* position: absolute;
-  bottom: 10px;
-  right: 10px;
-  padding: 0;
-  margin: 0; */
   color: #007bff;
-  /* font-weight: bold; */
   cursor: pointer;
   text-decoration: none;
 }
@@ -254,10 +248,6 @@ input[type='checkbox']:checked + .checkmark::after {
   justify-content: center;
 }
 
-.header > i {
-  margin: 10px;
-}
-
 .function-buttons > button {
   margin: 20px;
   padding: 10px 20px;
@@ -289,9 +279,23 @@ input[type='checkbox']:checked + .checkmark::after {
   border-radius: 2px;
 }
 
-.item-add:hover {
-  background-color: rgb(200,200,200);
-  animation-duration: 10ms;
+.designing > .grading-item {
+  border: 1px dashed transparent; 
+  /* border-radius: 2px; */
+}
+
+.designing > .grading-item:hover {
+  border: 1px dashed rgb(200,200,200);
+  border-radius: 2px;
+}
+
+.primary {
+  color: white;
+  background-color: rgb(136, 28, 28);
+}
+
+.primary:hover {
+  background-color: rgb(170, 40, 40);
 }
 
 .to-result {
@@ -300,10 +304,93 @@ input[type='checkbox']:checked + .checkmark::after {
   right: 30px;
   width: 100px;
   height: 50px;
-  background-color: rgb(139, 17, 17);
-  color: white;
   text-align: center;
   line-height: 50px;
   cursor: pointer;
   transition: opacity 0.3s, transform 0.3s;
+}
+
+.builder-button > i {
+  font-size: 20px;
+  margin: 5px;
+}
+
+
+dialog {
+  width: 400px;
+  padding: 30px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  background: white;
+  position: fixed;
+  /* top: 50%; */
+  /* left: 50%; */
+  /* transform: translate(-50%, -50%); */
+  opacity: 0;
+  /* pointer-events: none; */
+  /* transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; */
+}
+
+dialog[open] {
+  opacity: 1;
+  /* pointer-events: auto; */
+  /* transform: translate(-50%, -50%) scale(1); */
+  box-sizing: none;
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(3px);
+}
+
+/* 标题样式 */
+dialog h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* 关闭按钮 */
+.close-btn {
+  display: inline-block;
+  padding: 8px 16px;
+  margin-top: 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#prompt > form > textarea {
+  width: 90%;
+}
+
+#prompt > form > input {
+  width: 90%;
+}
+
+#prompt {
+  justify-content: center;
+}
+
+.close-btn:hover {
+  background-color: #0056b3;
+}
+
+.info {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgb(40, 167, 69); 
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000; 
 }

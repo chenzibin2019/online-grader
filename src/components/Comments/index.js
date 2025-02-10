@@ -1,6 +1,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import total from "../GradingGroup/total";
+import event from "../../utils/event";
 
 const Comments = ({ grading, rubrics }) => {
     const [comment, setComment] = useState('');
@@ -10,6 +11,7 @@ const Comments = ({ grading, rubrics }) => {
         if (commentRef.current) {
             commentRef.current.select();
             document.execCommand('copy');
+            event.emit('message', 'Comments copied to clipboard');
         }
     }
 
