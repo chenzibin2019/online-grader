@@ -5,7 +5,7 @@ const handleCodeCopy = (e, code) => {
     e.preventDefault();
     navigator.clipboard.writeText(code);
     e.target.style.color = 'green';
-    event.emit("message", "Code copied to clipboard" + Math.random());
+    event.emit("message", "Code copied to clipboard");
     setTimeout(() => {
         e.target.style.color = 'blue';
     }, 3000);

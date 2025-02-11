@@ -5,7 +5,7 @@ const TotalScore = ({ grading, rubrics }) => {
     
     return <p 
         className="total-score"
-    >Total Score: {total_grade}</p>
+    >Total Score: {total_grade.total}</p>
 }
 
 

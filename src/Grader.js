@@ -3,11 +3,13 @@ import { useState, useEffect, useRef } from "react";
 import event from "./utils/event";
 import TotalScore from "./components/TotalScore";
 import Comments from "./components/Comments";
+import getTotalScore from "./components/TotalScore/calculate_score";
 
 const Grader = ({ rubric }) => {
     const not_graded = {...rubric.rubrics.reduce((cur, rub, index) => ({...cur, [index]: []}), {})}
     const [currentGrading, setCurrentGrading] = useState(not_graded); // group_index -> [selected items]
     const totalRef = useRef(null);
+    const total = getTotalScore(currentGrading, rubric.rubrics);
 
     const onGrading = (group_index, item_index, value) => {
         
@@ -38,6 +40,12 @@ const Grader = ({ rubric }) => {
     return (
         <div>
             <div
+                className="score-block"
+            >
+                <span className="total">{total.total}</span> 
+                <span className="full">&nbsp;/&nbsp;{total.full_mark}</span>
+            </div>
+            <div
                 className="to-result primary"
                 onClick={() => {
                     totalRef.current.scrollIntoView({ behavior: "smooth" });
@@ -65,7 +73,14 @@ const Grader = ({ rubric }) => {
                 </button>
                 <button 
                     className="reset-button"
-                    onClick={() => event.emit("switch", "BUILDER")}
+                    onClick={() => {
+                        const alert = window.confirm("This is for debugging purposes only. Switching to builder mode will erase all grading work. Are you sure?");
+                        if (!alert) {
+                            return;
+                        }
+                        setCurrentGrading(not_graded);
+                        event.emit("switch", "BUILDER")
+                    }}
                 >
                     Edit Rubric
                 </button>
