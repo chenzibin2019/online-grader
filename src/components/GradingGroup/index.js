@@ -1,6 +1,7 @@
 import total from "./total";
 import event from "../../utils/event";
 import correct from "./grader/correct";
+import reset from "./grader/reset";
 import handleCodeCopy from "./grader/copy_code";
 import handleEditScore from "./design/edit_score";
 import handleEditDescription from "./design/edit_desc";
@@ -19,10 +20,17 @@ const GradingGroup = ({ group, grading }) => {
     
     return <div className={`group ${isDesigning && "designing"}`}>
         <h2>{group.name} ({total(group)}pts) 
-            {!isDesigning && <span 
+            {!isDesigning && <>
+            <span 
                 onClick={() => correct(group, grading)}
                 className={`correct ${isDesigning || grading[group.index] && grading[group.index].includes(-1) && "disabled"}`}
-            > [Correct]</span>}
+                title="Correct"
+                > <i className="fa-regular fa-circle-check" style={{fontSize: '18px'}} /></span>
+            <span 
+                onClick={() => reset(group, grading)}
+                className={`reset`}
+                title="Reset"
+            > <i className="fa-solid fa-arrow-rotate-left" style={{fontSize: '18px'}} /></span></> }
             {isDesigning && <>
                 <i className={`fa fa-pen`} style={{ fontSize: '19px', margin: '5px', cursor: 'pointer'}} onClick={() => handleEditGroupName(group.index, group.name)} />
                 <i className={`fa-regular fa-eye${group.check_submission ? "" : "-slash"}`} style={{ fontSize: '20px', margin: '5px', cursor: 'pointer'}} onClick={() => handleEditCheckSubmission(group.index, !group.check_submission)} />
@@ -56,7 +64,7 @@ const GradingGroup = ({ group, grading }) => {
                         }}
                     />}
                     {!isDesigning && <span className="checkmark"></span>}
-                    {!isDesigning && item.code && <i className="fa fa-code" style={{ fontSize: '15px', margin: '5px', color: 'blue'}} onClick={(e) => handleCodeCopy(e, item.code)} />}
+                    {!isDesigning && item.code && <i className="fa fa-code" style={{ fontSize: '15px', margin: '5px', color: 'blue'}} onClick={(e) => handleCodeCopy(e, item.code)} title="Copy Code"/>}
                     {isDesigning && <i className="fa fa-xmark" style={{ fontSize: '16px', margin: '5px', cursor: 'pointer'}} onClick={() => handleDeleteItem(group.index, item.description, item_index)}/>}
                     <span className={`description ${item.grade < 0 && "negative"}`}>
                         {item.description}

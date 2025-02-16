@@ -3,6 +3,9 @@ import Grader from './Grader';
 import Builder from './Builder';
 import { useEffect, useState } from 'react';
 import event from './utils/event';
+import ReactGA from "react-ga4";
+
+ReactGA.initialize("G-NXLV3Q7PS8");
 
 const App = () => {
     const [rubric, setRubric] = useState({});
@@ -17,18 +20,21 @@ const App = () => {
             rubric = await reader();
         } 
         setRubric(rubric);
+        ReactGA.event({ category: "Rubric", action: "Builder" });
         setMode("BUILDER");
     }
 
     const loadGrader = async () => {
         const rubric = await reader();
         setRubric(rubric);
+        ReactGA.event({ category: "Rubric", action: "Grader" });
         setMode("GRADER");
         console.log(rubric);
     }
 
     useEffect(() => {
         event.on("switch", (mode) => {
+            ReactGA.event({ category: "Rubric", action: mode });
             setMode(mode);
         });
         event.on("message", (message) => {

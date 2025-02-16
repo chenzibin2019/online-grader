@@ -265,8 +265,12 @@ input[type='checkbox']:checked + .checkmark::after {
 }
 
 .correct .disabled {
-  color: rgb(96, 113, 96);
-  cursor: not-allowed;
+  display: none;
+}
+
+.reset {
+  color: grey;
+  cursor: pointer;
 }
 
 .item-add {
@@ -414,3 +418,38 @@ dialog h2 {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 1000; 
 }
+
+.file-input {
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+.drop-area {
+  border: 2px dashed rgb(200, 200, 200);
+  padding: 30px;
+  margin-top: 25px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.file-in {
+  background: rgba(200, 200, 200, 0.586);
+}
+
+.upload-dialog > p {
+  margin: 0;
+  font-size: 15px;
+  font-style: italic;
+  text-align: left;
+  color: rgb(10, 10, 10);
+}
+
+
+.drop-area p {
+  inset: 0;
+  font-size: 20px;
+  color: rgb(0, 86, 179);
+}
+
+
